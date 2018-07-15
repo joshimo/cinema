@@ -2,6 +2,8 @@ package com.joshimo.cinema.enity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "seance")
@@ -19,6 +21,9 @@ public class Seance implements Serializable {
     @Basic
     @Column(name = "seance_filmname")
     private String filmName;
+
+    @OneToMany (fetch = FetchType.EAGER)
+    private List<Ticket> tickets = new ArrayList<>();
 
     /** constructors */
     public Seance() {
@@ -43,6 +48,10 @@ public class Seance implements Serializable {
         return filmName;
     }
 
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
     /** setters */
     public void setSeanceId(Long seanceId) {
         this.seanceId = seanceId;
@@ -54,5 +63,9 @@ public class Seance implements Serializable {
 
     public void setFilmName(String filmName) {
         this.filmName = filmName;
+    }
+
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
 }
