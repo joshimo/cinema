@@ -14,13 +14,13 @@ CREATE TABLE cinema.seat (
 
 CREATE TABLE cinema.seance (
   seance_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
-  seance_date DATE NOT NULL,
+  seance_date VARCHAR(64) NOT NULL,
   seance_filmname VARCHAR(128) NOT NULL
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE cinema.ticket (
   ticket_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
-  seance_id SMALLINT NOT NULL UNIQUE,
+  seance_id SMALLINT NOT NULL,
   cost DOUBLE NOT NULL DEFAULT 100,
   row_number SMALLINT NOT NULL,
   seat_number SMALLINT NOT NULL,

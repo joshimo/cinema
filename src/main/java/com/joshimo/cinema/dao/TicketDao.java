@@ -1,6 +1,6 @@
 package com.joshimo.cinema.dao;
 
-import com.joshimo.cinema.enities.Ticket;
+import com.joshimo.cinema.enity.Ticket;
 
 import java.util.List;
 

@@ -43,11 +43,11 @@ INSERT INTO cinema.seat (seat_number) VALUES (23);
 INSERT INTO cinema.seat (seat_number) VALUES (24);
 INSERT INTO cinema.seat (seat_number) VALUES (25);
 
-INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('10:00 15.07.2018', 'Монстры на каникулаз 3: Море зовёт');
-INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('11:55 15.07.2018', 'Монстры на каникулаз 3: Море зовёт');
-INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('13:50 15.07.2018', 'Монстры на каникулаз 3: Море зовёт');
-INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('15:45 15.07.2018', 'Монстры на каникулаз 3: Море зовёт');
-INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('17:40 15.07.2018', 'Монстры на каникулаз 3: Море зовёт');
+INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('10:00 15.07.2018', 'Монстры на каникулах 3: Море зовёт');
+INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('11:55 15.07.2018', 'Монстры на каникулах 3: Море зовёт');
+INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('13:50 15.07.2018', 'Монстры на каникулах 3: Море зовёт');
+INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('15:45 15.07.2018', 'Монстры на каникулах 3: Море зовёт');
+INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('17:40 15.07.2018', 'Монстры на каникулах 3: Море зовёт');
 INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('12:30 15.07.2018', 'Небоскрёб');
 INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('17:00 15.07.2018', 'Небоскрёб');
 INSERT INTO cinema.seance (seance_date, seance_filmname) VALUES ('19:40 15.07.2018', 'Небоскрёб');

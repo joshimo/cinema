@@ -1,6 +1,6 @@
 package com.joshimo.cinema.dao;
 
-import com.joshimo.cinema.enities.Seance;
+import com.joshimo.cinema.enity.Seance;
 
 import java.util.List;
 

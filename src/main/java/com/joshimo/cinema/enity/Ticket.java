@@ -1,4 +1,4 @@
-package com.joshimo.cinema.enities;
+package com.joshimo.cinema.enity;
 
 import javax.persistence.*;
 import java.io.Serializable;

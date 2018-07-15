@@ -1,15 +1,13 @@
 package com.joshimo.cinema.dao.implementation;
 
 import com.joshimo.cinema.dao.SeanceDao;
-import com.joshimo.cinema.enities.Seance;
+import com.joshimo.cinema.enity.Seance;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 

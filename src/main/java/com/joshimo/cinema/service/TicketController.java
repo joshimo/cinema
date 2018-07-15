@@ -2,19 +2,19 @@ package com.joshimo.cinema.service;
 
 import com.joshimo.cinema.dao.SeanceDao;
 import com.joshimo.cinema.dao.TicketDao;
-import com.joshimo.cinema.enities.Seance;
-import com.joshimo.cinema.enities.Ticket;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import com.joshimo.cinema.enity.Seance;
+import com.joshimo.cinema.enity.Ticket;
+import com.joshimo.cinema.exception.TicketBookException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.annotation.Resource;
+import java.net.URI;
 import java.util.List;
 
 @RestController
 public class TicketController {
-
-    private Ticket ticketMock;
 
     @Resource(name = "seanceDao")
     private SeanceDao seanceDao;
@@ -22,21 +22,36 @@ public class TicketController {
     @Resource(name = "ticketDao")
     private TicketDao ticketDao;
 
-    {
-        ticketMock = new Ticket();
-        ticketMock.setTicketId(System.currentTimeMillis());
-        ticketMock.setCost(100.0);
-        ticketMock.setReserved(true);
+    @GetMapping("/service/ticket/{id}")
+    public Ticket findTicket(@PathVariable Long id) {
+      return ticketDao.findTicketById(id);
     }
 
-    @GetMapping("/service/book")
-    public Ticket bookASeat(Long seanceId, Integer rowNumber, Integer seatNumber) {
-        //ToDo: mock shall be replaced with real ticket entity recieved from DB with Hibernate
-        ticketMock.setSeanceId(seanceId);
-        ticketMock.setRowNumber(rowNumber);
-        ticketMock.setSeatNumber(seatNumber);
-        return ticketMock;
+    @PostMapping("/service/book")
+    public ResponseEntity<Object> bookASeat(@RequestBody Ticket ticket) {
+        try {
+            ticketDao.addNewTicket(ticket);
+        }
+        catch (Exception e) {
+            throw new TicketBookException(e.getMessage());
+        }
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(ticket.getTicketId()).toUri();
+        return ResponseEntity.created(location).build();
     }
+
+    @DeleteMapping("/service/cancel/{id}")
+    public void cancelBooking(@PathVariable Long id) {
+        try {
+            System.out.println(id);
+            ticketDao.removeTicketById(id);
+        }
+        catch (Exception e) {
+            throw new TicketBookException(e.getMessage());
+        }
+    }
+
+
 
     @GetMapping("/service/showAllSeances")
     public List<Seance> findSeances() {
@@ -46,21 +61,6 @@ public class TicketController {
     @GetMapping("/service/showSeance/{id}")
     public Seance findSeanceById(@PathVariable Long id) {
         return seanceDao.findSeanceById(id);
-    }
-
-    @GetMapping("/service/book/{seanceId}/{rowNum}/{seatNum}")
-    public String book(@PathVariable Long seanceId,
-                       @PathVariable Integer rowNum,
-                       @PathVariable Integer seatNum) {
-        Ticket ticket = new Ticket();
-        ticket.setCost(0d);
-        ticket.setSeanceId(seanceId);
-        ticket.setRowNumber(rowNum);
-        ticket.setSeatNumber(seatNum);
-        if (ticketDao.addNewTicket(ticket))
-            return "Success! You has been booked a ticket!";
-        else
-            return "Error! Your ticket has not been booked!";
     }
 
     @GetMapping("/service/hello/{name}")

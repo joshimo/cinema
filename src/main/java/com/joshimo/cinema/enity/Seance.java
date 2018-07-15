@@ -1,14 +1,11 @@
-package com.joshimo.cinema.enities;
-
-import org.hibernate.validator.constraints.NotEmpty;
+package com.joshimo.cinema.enity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
-import java.util.Date;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "seance")
-public class Seance {
+public class Seance implements Serializable {
 
     @Id
     @Column(name = "seance_id")
