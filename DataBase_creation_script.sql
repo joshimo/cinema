@@ -12,10 +12,18 @@ CREATE TABLE cinema.seat (
   seat_number SMALLINT NOT NULL UNIQUE
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE cinema.film (
+  film_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
+  film_name VARCHAR(128) NOT NULL,
+  film_info VARCHAR(255) NOT NULL,
+  film_notes VARCHAR(255) NOT NULL
+) ENGINE InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE cinema.seance (
   seance_id SMALLINT NOT NULL AUTO_INCREMENT KEY,
-  seance_date VARCHAR(64) NOT NULL,
-  seance_filmname VARCHAR(128) NOT NULL
+  film_id SMALLINT NOT NULL,
+  seance_schedule VARCHAR(64) NOT NULL,
+  FOREIGN KEY (film_id) REFERENCES cinema.film (film_id)
 ) ENGINE InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE cinema.ticket (

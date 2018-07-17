@@ -14,7 +14,7 @@ public class CinemaApplication {
 	@Bean(name = "sessionFactory")
 	public SessionFactory entityManagerFactory() {
 		Configuration configuration = new Configuration();
-		configuration.configure();
+		configuration.configure("hibernate.cfg.xml");
 		return configuration.buildSessionFactory();
 	}
 

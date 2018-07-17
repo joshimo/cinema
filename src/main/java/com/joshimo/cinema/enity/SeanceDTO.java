@@ -7,7 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "seance")
-public class Seance implements Serializable {
+public class SeanceDTO implements Serializable {
 
     @Id
     @Column(name = "seance_id")
@@ -22,12 +22,8 @@ public class Seance implements Serializable {
     @Column(name = "seance_schedule")
     private String scedule;
 
-    @OneToMany (fetch = FetchType.EAGER)
-    @JoinColumn(name = "seance_id")
-    private List<Ticket> tickets = new ArrayList<>();
-
     /** constructors */
-    public Seance() {
+    public SeanceDTO() {
     }
 
     /** getters */
@@ -43,10 +39,6 @@ public class Seance implements Serializable {
         return scedule;
     }
 
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
-
     /** setters */
     public void setSeanceId(Long seanceId) {
         this.seanceId = seanceId;
@@ -60,17 +52,12 @@ public class Seance implements Serializable {
         this.scedule = scedule;
     }
 
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
     @Override
     public String toString() {
         return "Seance{" +
                 "seanceId=" + seanceId +
                 ", scedule='" + scedule + '\'' +
                 ", film='" + film + '\'' +
-                ", tickets=" + tickets +
                 '}';
     }
 }

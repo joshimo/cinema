@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "ticket")
-public class Ticket implements Serializable {
+public class TicketDTO implements Serializable {
 
     @Id
     @Column(name = "ticket_id")
@@ -25,7 +25,7 @@ public class Ticket implements Serializable {
     private Row row;
 
     /** constructor */
-    public Ticket() {
+    public TicketDTO() {
     }
 
     /** getters */
