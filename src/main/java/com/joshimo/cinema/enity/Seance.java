@@ -14,13 +14,17 @@ public class Seance implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long seanceId;
 
+    @Basic
+    @Column(name = "film_id")
+    private Long filmId;
+
     @OneToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "film_id")
+    @JoinColumn(name = "film_id", insertable = false, updatable = false)
     private Film film;
 
     @Basic
     @Column(name = "seance_schedule")
-    private String scedule;
+    private String schedule;
 
     @OneToMany (fetch = FetchType.EAGER)
     @JoinColumn(name = "seance_id")
@@ -35,12 +39,16 @@ public class Seance implements Serializable {
         return seanceId;
     }
 
+    public Long getFilmId() {
+        return filmId;
+    }
+
     public Film getFilm() {
         return film;
     }
 
-    public String getScedule() {
-        return scedule;
+    public String getSchedule() {
+        return schedule;
     }
 
     public List<Ticket> getTickets() {
@@ -52,12 +60,16 @@ public class Seance implements Serializable {
         this.seanceId = seanceId;
     }
 
+    public void setFilmId(Long film_id) {
+        this.filmId = film_id;
+    }
+
     public void setFilm(Film film) {
         this.film = film;
     }
 
-    public void setScedule(String scedule) {
-        this.scedule = scedule;
+    public void setSchedule(String scedule) {
+        this.schedule = scedule;
     }
 
     public void setTickets(List<Ticket> tickets) {
@@ -68,7 +80,7 @@ public class Seance implements Serializable {
     public String toString() {
         return "Seance{" +
                 "seanceId=" + seanceId +
-                ", scedule='" + scedule + '\'' +
+                ", scedule='" + schedule + '\'' +
                 ", film='" + film + '\'' +
                 ", tickets=" + tickets +
                 '}';

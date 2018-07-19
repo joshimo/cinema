@@ -43,19 +43,30 @@ public class SeanceDaoImpl implements SeanceDao {
 
     @Override
     public boolean addNewSeance(Seance seance) {
-        //ToDo: add an implementation
-        return false;
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.save(seance);
+        session.getTransaction().commit();
+        return true;
     }
 
     @Override
     public boolean removeSeanceById(Long id) {
-        //ToDo: add an implementation
-        return false;
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("from Seance where id=" + id);
+        Seance seance = (Seance) query.list().get(0);
+        session.delete(seance);
+        session.getTransaction().commit();
+        return true;
     }
 
     @Override
     public boolean removeSeance(Seance seance) {
-        //ToDo: add an implementation
-        return false;
+        session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.delete(seance);
+        session.getTransaction().commit();
+        return true;
     }
 }

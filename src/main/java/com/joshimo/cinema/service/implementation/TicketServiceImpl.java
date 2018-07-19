@@ -1,7 +1,6 @@
 package com.joshimo.cinema.service.implementation;
 
 import com.joshimo.cinema.enity.Ticket;
-import com.joshimo.cinema.repository.TicketDTORepository;
 import com.joshimo.cinema.repository.TicketRepository;
 import com.joshimo.cinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,6 @@ public class TicketServiceImpl implements TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
-
-    @Autowired
-    TicketDTORepository ticketDTORepository;
 
     @Override
     public List<Ticket> findAllTickets() {

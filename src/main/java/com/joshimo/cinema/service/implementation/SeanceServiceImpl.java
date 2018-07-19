@@ -1,7 +1,6 @@
 package com.joshimo.cinema.service.implementation;
 
 import com.joshimo.cinema.enity.Seance;
-import com.joshimo.cinema.repository.SeanceDTORepository;
 import com.joshimo.cinema.repository.SeanceRepository;
 import com.joshimo.cinema.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,6 @@ public class SeanceServiceImpl implements SeanceService {
 
     @Autowired
     SeanceRepository seanceRepository;
-
-    @Autowired
-    SeanceDTORepository seanceDtoRepository;
 
     @Override
     public List<Seance> findAllSeances() {

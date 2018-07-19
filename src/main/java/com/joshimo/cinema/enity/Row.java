@@ -19,6 +19,10 @@ public class Row implements Serializable {
     public Row() {
     }
 
+    public Row(Integer rowNumber) {
+        this.rowNumber = rowNumber;
+    }
+
     public Integer getRowNumber() {
         return rowNumber;
     }

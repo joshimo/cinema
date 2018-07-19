@@ -4,9 +4,14 @@ import com.joshimo.cinema.dao.SeanceDao;
 import com.joshimo.cinema.dao.TicketDao;
 import com.joshimo.cinema.enity.Seance;
 import com.joshimo.cinema.enity.Ticket;
+import com.joshimo.cinema.enity.dto.TicketRequest;
+import com.joshimo.cinema.enity.dto.TicketResponse;
+import com.joshimo.cinema.enity.implementation.SeanceRequestResponseConverter;
+import com.joshimo.cinema.enity.implementation.TicketRequestResponseConverter;
 import com.joshimo.cinema.exception.TicketBookException;
 import com.joshimo.cinema.service.SeanceService;
 import com.joshimo.cinema.service.TicketService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -24,15 +29,24 @@ public class Controller {
     @Resource(name = "ticketService")
     private TicketService ticketDao;
 
+    @Autowired
+    private TicketRequestResponseConverter ticketConverter;
+
+    @Autowired
+    private SeanceRequestResponseConverter seanceConverter;
+
     /** Ticket services */
     @GetMapping("/d/ticket/show/{id}")
-    public Ticket findTicket(@PathVariable Long id) {
-        return ticketDao.findTicketById(id);
+    public TicketResponse findTicket(@PathVariable Long id) {
+        Ticket ticket = ticketDao.findTicketById(id);
+        return ticketConverter.entityToResponse(ticket);
     }
 
     @PostMapping("/d/ticket/book")
-    public ResponseEntity bookASeat(@RequestBody Ticket ticket) {
+    public ResponseEntity bookASeat(@RequestBody TicketRequest ticketRequest) {
+        Ticket ticket;
         try {
+            ticket = ticketConverter.requestToEntity(ticketRequest);
             ticketDao.addNewTicket(ticket);
         }
         catch (Exception e) {

@@ -15,6 +15,10 @@ public class Seat implements Serializable {
     public Seat() {
     }
 
+    public Seat(Integer seatNumber) {
+        this.seatNumber = seatNumber;
+    }
+
     public Integer getSeatNumber() {
         return seatNumber;
     }
