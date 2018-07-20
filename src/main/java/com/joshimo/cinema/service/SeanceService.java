@@ -10,9 +10,9 @@ public interface SeanceService {
 
     Seance findSeanceById(Long id);
 
-    boolean addNewSeance(Seance seance);
+    Seance addNewSeance(Seance seance);
 
-    boolean removeSeanceById(Long id);
+    void removeSeanceById(Long id);
 
-    boolean removeSeance(Seance seance);
+    void removeSeance(Seance seance);
 }

@@ -4,6 +4,7 @@ import com.joshimo.cinema.enity.Seance;
 
 import java.util.List;
 
+@Deprecated
 public interface SeanceDao {
 
     List<Seance> findAllSeances();

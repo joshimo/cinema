@@ -1,8 +1,11 @@
 package com.joshimo.cinema.enity.dto;
 
+import javax.validation.constraints.Size;
+
 public class SeanceRequest {
 
     private Long filmId;
+    @Size(min = 14, max = 28)
     private String schedule;
 
     public SeanceRequest() {

@@ -1,9 +1,16 @@
 package com.joshimo.cinema.enity.dto;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+
 public class TicketRequest {
 
     private Long seanceId;
+    @Min(1)
+    @Max(16)
     private Integer rowNumber;
+    @Min(1)
+    @Max(25)
     private Integer seatNumber;
 
     public TicketRequest() {

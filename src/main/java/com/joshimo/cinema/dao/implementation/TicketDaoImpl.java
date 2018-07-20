@@ -13,6 +13,7 @@ import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
 
+@Deprecated
 @Service("ticketDao")
 @Transactional
 public class TicketDaoImpl implements TicketDao {

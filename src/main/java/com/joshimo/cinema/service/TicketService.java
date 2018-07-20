@@ -10,9 +10,9 @@ public interface TicketService {
 
     Ticket findTicketById(Long id);
 
-    boolean addNewTicket(Ticket ticket);
+    Ticket addNewTicket(Ticket ticket);
 
-    boolean removeTicketById(Long id);
+    void removeTicketById(Long id);
 
-    boolean removeTicket(Ticket ticket);
+    void removeTicket(Ticket ticket);
 }

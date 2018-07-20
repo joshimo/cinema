@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import java.util.LinkedList;
 import java.util.List;
 
+@Deprecated
 @Service("seanceDao")
 @Transactional
 public class SeanceDaoImpl implements SeanceDao {

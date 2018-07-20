@@ -4,6 +4,7 @@ import com.joshimo.cinema.enity.Ticket;
 
 import java.util.List;
 
+@Deprecated
 public interface TicketDao {
 
     List<Ticket> findAllTickets();

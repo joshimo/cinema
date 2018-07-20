@@ -5,39 +5,39 @@ import java.util.Date;
 public class ErrorEntity {
 
     private Date date;
+    private String exception;
     private String message;
-    private String cause;
 
     public ErrorEntity() {
     }
 
-    public ErrorEntity(Date date, String message, String cause) {
+    public ErrorEntity(Date date, String exception, String message) {
         this.date = date;
+        this.exception = exception;
         this.message = message;
-        this.cause = cause;
     }
 
     public Date getDate() {
         return date;
     }
 
-    public String getMessage() {
-        return message;
+    public String getException() {
+        return exception;
     }
 
-    public String getCause() {
-        return cause;
+    public String getMessage() {
+        return message;
     }
 
     public void setDate(Date date) {
         this.date = date;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setException(String exception) {
+        this.exception = exception;
     }
 
-    public void setCause(String cause) {
-        this.cause = cause;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }
