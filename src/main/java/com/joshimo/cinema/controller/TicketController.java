@@ -6,23 +6,26 @@ import com.joshimo.cinema.enity.dto.TicketResponse;
 import com.joshimo.cinema.enity.implementation.TicketRequestResponseConverter;
 import com.joshimo.cinema.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.LinkedList;
 import java.util.List;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
+
 @RestController
+@RequestMapping("/ticket")
 public class TicketController {
 
     private TicketService ticketService;
     private TicketRequestResponseConverter ticketConverter;
 
-    @Resource(name = "ticketService")
+    @Autowired
     public void setTicketService(TicketService ticketService) {
         this.ticketService = ticketService;
     }
@@ -32,9 +35,10 @@ public class TicketController {
         this.ticketConverter = ticketConverter;
     }
 
+
     /** Ticket services */
 
-    @GetMapping("/ticket/show/all")
+    @GetMapping("/show/all")
     public List<TicketResponse> findAllTickets() {
         List<TicketResponse> tickets = new LinkedList<>();
         ticketService.findAllTickets().forEach((ticket) -> {
@@ -43,13 +47,18 @@ public class TicketController {
         return tickets;
     }
 
-    @GetMapping("/ticket/show/{id}")
-    public TicketResponse findTicket(@PathVariable Long id) {
+    @GetMapping("/show/{id}")
+    public Resource<TicketResponse> findTicket(@PathVariable Long id) {
         Ticket ticket = ticketService.findTicketById(id);
-        return ticketConverter.entityToResponse(ticket);
+        Long seanceId = ticket.getSeanceId();
+        TicketResponse ticketResponse = ticketConverter.entityToResponse(ticket);
+        Resource<TicketResponse> resource = new Resource<>(ticketResponse);
+        ControllerLinkBuilder linkToSeance = linkTo(methodOn(SeanceController.class).findSeanceById(seanceId));
+        resource.add(linkToSeance.withRel("seance"));
+        return resource;
     }
 
-    @PostMapping("/ticket/book")
+    @PostMapping("/book")
     public ResponseEntity bookASeat(@Valid @RequestBody TicketRequest request) {
         Ticket ticket = ticketConverter.requestToEntity(request);
         Ticket booked = ticketService.addNewTicket(ticket);
@@ -57,7 +66,7 @@ public class TicketController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/ticket/cancel/{id}")
+    @DeleteMapping("/cancel/{id}")
     public void cancelBooking(@PathVariable Long id) {
         ticketService.removeTicketById(id);
     }

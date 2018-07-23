@@ -26,6 +26,11 @@ public class SeanceServiceImpl implements SeanceService {
     }
 
     @Override
+    public List<Seance> findAllByFilmId(Long id) {
+        return seanceRepository.findAllByFilmId(id);
+    }
+
+    @Override
     public Seance findSeanceById(Long id) {
         return seanceRepository.findById(id).orElseThrow(() -> new NoSuchSeanceException());
     }

@@ -68,8 +68,8 @@ public class Seance implements Serializable {
         this.film = film;
     }
 
-    public void setSchedule(String scedule) {
-        this.schedule = scedule;
+    public void setSchedule(String schedule) {
+        this.schedule = schedule;
     }
 
     public void setTickets(List<Ticket> tickets) {

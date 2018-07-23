@@ -34,6 +34,7 @@ public class CinemaExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception ex) {
         ErrorEntity error = new ErrorEntity(new Date(), ex.getClass().getSimpleName(), ex.getMessage());
+        ex.printStackTrace();
         return new ResponseEntity<Object>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

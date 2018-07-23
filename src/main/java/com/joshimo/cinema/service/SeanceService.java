@@ -8,6 +8,8 @@ public interface SeanceService {
 
     List<Seance> findAllSeances();
 
+    List<Seance> findAllByFilmId(Long id);
+
     Seance findSeanceById(Long id);
 
     Seance addNewSeance(Seance seance);
