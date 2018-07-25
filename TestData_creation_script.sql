@@ -43,6 +43,16 @@ INSERT INTO cinema.seat (seat_number) VALUES (23);
 INSERT INTO cinema.seat (seat_number) VALUES (24);
 INSERT INTO cinema.seat (seat_number) VALUES (25);
 
+INSERT INTO cinema.user_role (role_id, role_description) VALUES (0, 'USER');
+INSERT INTO cinema.user_role (role_id, role_description) VALUES (1, 'ADMIN');
+
+INSERT INTO cinema.user (user_name, user_password, user_email, role_id, user_notes)
+VALUES ('Guest', '', '', 0, '');
+INSERT INTO cinema.user (user_name, user_password, user_phone, user_email, role_id, user_notes)
+VALUES ('Yaroslav', 'Yaroslav', '+38 068 369 09 40', 'joshimo.kiev@gmail.com', 0, 'Some user notes');
+INSERT INTO cinema.user (user_name, user_password, user_phone, user_email, role_id, user_notes)
+VALUES ('Admin', 'Admin', '+38 068 369 09 40','admin@cinema.com', 1, 'Admin`s notes');
+
 INSERT INTO cinema.film (film_name, film_info, film_notes) VALUES ('Монстры на каникулах 3: Море зовёт', 'Любишь ужасы? Проведи отпуск с семьёй!', 'Семейный');
 INSERT INTO cinema.film (film_name, film_info, film_notes) VALUES ('Небоскрёб', 'The sky is the limit', '18+');
 INSERT INTO cinema.film (film_name, film_info, film_notes) VALUES ('Человек-муравей и Оса', 'Real heroes. Not actual size', '18+');

@@ -9,6 +9,7 @@
         <mapping class="com.joshimo.cinema.enity.Row"/>
         <mapping class="com.joshimo.cinema.enity.Seat"/>
         <mapping class="com.joshimo.cinema.enity.Film"/>
+        <mapping class="com.joshimo.cinema.enity.User"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>

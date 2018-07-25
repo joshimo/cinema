@@ -17,6 +17,8 @@ import java.util.Date;
 public class CinemaExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({
+            PermissionException.class,
+            NoSuchUserException.class,
             NoSuchSeanceException.class,
             NoSuchTicketException.class,
             NoSuchFilmException.class})

@@ -3,6 +3,8 @@ package com.joshimo.cinema.enity.dto;
 public class TicketResponse {
 
     private Long ticketId;
+    private Long userId;
+    private String userName;
     private String schedule;
     private String filmName;
     private Double cost;
@@ -14,6 +16,14 @@ public class TicketResponse {
 
     public Long getTicketId() {
         return ticketId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public String getSchedule() {
@@ -38,6 +48,14 @@ public class TicketResponse {
 
     public void setTicketId(Long ticketId) {
         this.ticketId = ticketId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setSchedule(String schedule) {

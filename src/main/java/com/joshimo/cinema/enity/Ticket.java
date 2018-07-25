@@ -16,6 +16,10 @@ public class Ticket implements Serializable {
     @Column(name = "seance_id")
     private Long seanceId;
 
+    /*@Basic
+    @Column(name = "user_id")
+    private Long userId;*/
+
     @OneToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "seat_number")
     private Seat seat;
@@ -23,6 +27,10 @@ public class Ticket implements Serializable {
     @OneToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "row_number")
     private Row row;
+
+    @OneToOne (fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     /** constructor */
     public Ticket() {
@@ -37,12 +45,20 @@ public class Ticket implements Serializable {
         return seanceId;
     }
 
+    /*public Long getUserId() {
+        return userId;
+    }*/
+
     public Row getRow() {
         return row;
     }
 
     public Seat getSeat() {
         return seat;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     /** setters */
@@ -54,11 +70,19 @@ public class Ticket implements Serializable {
         this.seanceId = seanceId;
     }
 
+    /*public void setUserId(Long userId) {
+        this.userId = userId;
+    }*/
+
     public void setRow(Row row) {
         this.row = row;
     }
 
     public void setSeat(Seat seat) {
         this.seat = seat;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

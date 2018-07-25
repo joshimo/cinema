@@ -26,6 +26,8 @@ public class TicketRequestResponseConverter implements EntityRequestResponseConv
     public TicketResponse entityToResponse(Ticket ticket) {
         TicketResponse response = new TicketResponse();
         response.setTicketId(ticket.getTicketId());
+        response.setUserId(ticket.getUser().getId());
+        response.setUserName(ticket.getUser().getName());
         response.setSchedule("shall be added");
         response.setFilmName("shall be added");
         response.setCost(ticket.getRow().getCost());
