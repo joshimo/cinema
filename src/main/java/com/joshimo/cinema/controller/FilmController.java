@@ -1,8 +1,12 @@
 package com.joshimo.cinema.controller;
 
 import com.joshimo.cinema.enity.Film;
+import com.joshimo.cinema.enity.User;
+import com.joshimo.cinema.enity.UserRole;
+import com.joshimo.cinema.exception.PermissionException;
 import com.joshimo.cinema.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +19,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
+@Scope("session")
+@SessionAttributes("user")
 @RequestMapping("/film")
 public class FilmController {
 
@@ -42,14 +48,20 @@ public class FilmController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addFilm(@RequestBody Film film) {
+    public ResponseEntity addFilm(@RequestBody Film film, @SessionAttribute("user") User user) {
+        if (user.getUserRole() != UserRole.ADMIN) {
+            throw new PermissionException();
+        }
         Film addedFilm = filmService.addNewFilm(film);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(addedFilm.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteFilm(@PathVariable Long id) {
+    public void deleteFilm(@PathVariable Long id, @SessionAttribute("user") User user) {
+        if (user.getUserRole() != UserRole.ADMIN) {
+            throw new PermissionException();
+        }
         filmService.removeFilmById(id);
     }
 }

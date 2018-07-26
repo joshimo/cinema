@@ -8,17 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @RestController
 @Scope("session")
-@SessionAttributes(value = "user")
+@SessionAttributes("user")
 public class LoginController {
 
-    UserService userService;
-    UserRequestResponseConverter userConverter;
+    private UserService userService;
+    private UserRequestResponseConverter userConverter;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -34,6 +31,16 @@ public class LoginController {
     public String login(@RequestBody UserRequest userRequest, Model model) {
         User logInUser = userConverter.requestToEntity(userRequest);
         User user = userService.findUserByNameAndPassword(logInUser);
+        model.addAttribute("user", user);
+        return "ok";
+    }
+
+    @GetMapping("/logout")
+    public String logout(Model model) {
+        User guestUser = new User();
+        guestUser.setName("Guest");
+        guestUser.setPassword("");
+        User user = userService.findUserByNameAndPassword(guestUser);
         model.addAttribute("user", user);
         return "ok";
     }

@@ -12,9 +12,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.net.URI;
 
 @RestController
@@ -37,9 +34,12 @@ public class UserController {
     }
 
     @GetMapping("/show/{id}")
-    public UserResponse getUserById(@PathVariable Long id) {
-        User user = userService.findUserById(id);
-        return userConverter.entityToResponse(user);
+    public UserResponse getUserById(@PathVariable Long id, @SessionAttribute("user") User user) {
+        if (!(user.getId().equals(id) || user.getUserRole() == UserRole.ADMIN)) {
+            throw new PermissionException();
+        }
+        User requestedUser = userService.findUserById(id);
+        return userConverter.entityToResponse(requestedUser);
     }
 
     @PostMapping("/add")
@@ -51,12 +51,10 @@ public class UserController {
     }
 
     @DeleteMapping("/remove/{id}")
-    public void removeUser(@PathVariable Long id, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+    public void removeUser(@PathVariable Long id, @SessionAttribute("user") User user) {
         System.out.println("UserController user = " + user);
         if (user.getId().equals(id) || user.getUserRole() == UserRole.ADMIN) {
-            //userService.removeUserById(id);
-            throw new PermissionException();
+            userService.removeUserById(id);
         } else {
             throw new PermissionException();
         }

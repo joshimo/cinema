@@ -1,11 +1,15 @@
 package com.joshimo.cinema.controller;
 
 import com.joshimo.cinema.enity.Seance;
+import com.joshimo.cinema.enity.User;
+import com.joshimo.cinema.enity.UserRole;
 import com.joshimo.cinema.enity.dto.SeanceRequest;
 import com.joshimo.cinema.enity.dto.SeanceResponse;
 import com.joshimo.cinema.enity.implementation.SeanceRequestResponseConverter;
+import com.joshimo.cinema.exception.PermissionException;
 import com.joshimo.cinema.service.SeanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +24,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
+@Scope("session")
+@SessionAttributes("user")
 @RequestMapping("/seance")
 public class SeanceController {
 
@@ -78,7 +84,10 @@ public class SeanceController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addSeance(@Valid @RequestBody SeanceRequest request) {
+    public ResponseEntity addSeance(@Valid @RequestBody SeanceRequest request, @SessionAttribute("user") User user) {
+        if (user.getUserRole() != UserRole.ADMIN) {
+            throw new PermissionException();
+        }
         Seance seance = seanceConverter.requestToEntity(request);
         Seance created = seanceService.addNewSeance(seance);
         URI location = ServletUriComponentsBuilder.fromPath("/seance/show/{id}").buildAndExpand(created.getSeanceId()).toUri();
@@ -86,7 +95,10 @@ public class SeanceController {
     }
 
     @DeleteMapping("/cancel/{id}")
-    public void cancelSeance(@PathVariable Long id) {
+    public void cancelSeance(@PathVariable Long id, @SessionAttribute("user") User user) {
+        if (user.getUserRole() != UserRole.ADMIN) {
+            throw new PermissionException();
+        }
         seanceService.removeSeanceById(id);
     }
 }
